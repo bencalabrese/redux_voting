@@ -1,9 +1,14 @@
 {
   "name": "full_stack_redux",
   "version": "1.0.0",
-  "description": "",
+  "description": "Voting app in Redux",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:bencalabrese/redux_voting.git"
+  },
   "main": "index.js",
   "scripts": {
+    "start": "babel-node index.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive",
     "test:watch": "npm run test -- --watch"
   },
@@ -24,6 +29,8 @@
     ]
   },
   "dependencies": {
-    "immutable": "^3.8.1"
+    "immutable": "^3.8.1",
+    "redux": "^3.5.2",
+    "socket.io": "^1.4.8"
   }
 }
