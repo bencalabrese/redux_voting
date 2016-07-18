@@ -1,12 +1,20 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import App from './components/app';
 import Voting from './components/voting';
-
-const pair = ['Trainspotting', '28 Days Later'];
+import Results from './components/results';
 
 if (module.hot) { module.hot.accept(); }
 
+const routes = (
+  <Route path="/" component={App}>
+    <IndexRoute component={Voting} />
+    <Route path="results" component={Results} />
+  </Route>
+);
+
 ReactDom.render(
-  <Voting pair={pair} hasVoted="Trainspotting"/>,
+  <Router history={browserHistory}>{routes}</Router>,
   document.getElementById('app')
 );

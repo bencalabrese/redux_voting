@@ -1,29 +1,30 @@
 import React from 'react';
+import PureComponent from '../util/pure_component';
 
-export default React.createClass({
-  getPair: function() {
+export default class Vote extends PureComponent {
+  getPair() {
     return this.props.pair || [];
-  },
+  }
 
-  isDisabled: function() {
+  isDisabled() {
     return !!this.props.hasVoted;
-  },
+  }
 
-  hasVotedFor: function(entry) {
+  hasVotedFor(entry) {
     return this.props.hasVoted === entry;
-  },
+  }
 
-  bindVoteCallback: function(entry) {
+  bindVoteCallback(entry) {
     return () => this.props.vote(entry)
-  },
+  }
 
-  votedForTag: function(entry) {
+  votedForTag(entry) {
     return this.hasVotedFor(entry) ?
       <div className="label">Voted</div> :
       null;
-  },
+  }
 
-  render: function() {
+  render() {
     const buttons = this.getPair().map(entry => {
       return (
         <button key={entry}
@@ -39,4 +40,4 @@ export default React.createClass({
 
     return <div className="voting">{buttons}</div>
   }
-});
+};
