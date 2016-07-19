@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "100ef1fcde47039c5fa1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "de82a1210d2dc29eb52e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -34237,6 +34237,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var pair = _immutable.List.of('Trainspotting', '28 Days Later');
+	var tally = (0, _immutable.Map)({ 'Trainspotting': 5, '28 Days Later': 4 });
 
 	var App = function (_Component) {
 	  _inherits(App, _Component);
@@ -34250,7 +34251,10 @@
 	  _createClass(App, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.cloneElement(this.props.children, { pair: pair });
+	      return _react2.default.cloneElement(this.props.children, {
+	        pair: pair,
+	        tally: tally
+	      });
 	    }
 	  }]);
 
@@ -39391,7 +39395,8 @@
 	          _react2.default.createElement(
 	            'h1',
 	            null,
-	            entry
+	            entry,
+	            'yay'
 	          ),
 	          _this3.votedForTag(entry)
 	        );
@@ -39589,12 +39594,43 @@
 	  }
 
 	  _createClass(Results, [{
+	    key: 'getPair',
+	    value: function getPair() {
+	      return this.props.pair || [];
+	    }
+	  }, {
+	    key: 'getVotes',
+	    value: function getVotes(entry) {
+	      var tally = this.props.tally;
+
+	      return tally && tally.has(entry) ? tally.get(entry) : 0;
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
+	      var entries = this.getPair().map(function (entry) {
+	        return _react2.default.createElement(
+	          'div',
+	          { key: entry, className: 'entry' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            entry
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'voteCount' },
+	            _this2.getVotes(entry)
+	          )
+	        );
+	      });
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        'Hello from results!'
+	        entries
 	      );
 	    }
 	  }]);
